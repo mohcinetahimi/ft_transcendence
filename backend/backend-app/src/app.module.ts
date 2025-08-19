@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 
 @Module({
@@ -17,6 +19,8 @@ import { UsersModule } from './users/users.module';
       synchronize: true,           // auto create tables (good for dev only!)
     }),
     UsersModule,
+    AuthModule,
+    JwtModule.register({ secret: 'your_jwt_secret', signOptions: { expiresIn: '1h' } }),
   ],
   controllers: [AppController],
   providers: [AppService],
